@@ -2,6 +2,22 @@
 
 class SV_ThreadReplyBanTeeth_XenForo_Model_Thread extends XFCP_SV_ThreadReplyBanTeeth_XenForo_Model_Thread
 {
+    public function prepareThreadFetchOptions(array $fetchOptions)
+    {
+        if (!isset($fetchOptions['replyBanUserId']))
+        {
+            if (isset($fetchOptions['readUserId']))
+            {
+                $fetchOptions['replyBanUserId'] = $fetchOptions['readUserId'];
+            }
+            else if (isset($fetchOptions['postCountUserId']))
+            {
+                $fetchOptions['replyBanUserId'] = $fetchOptions['postCountUserId'];
+            }
+        }
+        return parent::prepareThreadFetchOptions($fetchOptions);
+    }
+
     public function isReplyBanned(array $thread, array &$viewingUser = null)
     {
         if ($viewingUser['user_id'])
