@@ -14,6 +14,10 @@ class SV_ThreadReplyBanTeeth_XenForo_Model_Thread extends XFCP_SV_ThreadReplyBan
             {
                 $fetchOptions['replyBanUserId'] = $fetchOptions['postCountUserId'];
             }
+            else if (SV_ThreadReplyBanTeeth_Globals::$hintThreadBanUserId)
+            {
+                $fetchOptions['replyBanUserId'] = SV_ThreadReplyBanTeeth_Globals::$hintThreadBanUserId;
+            }
         }
         return parent::prepareThreadFetchOptions($fetchOptions);
     }
