@@ -19,6 +19,7 @@ class SV_ThreadReplyBanTeeth_XenForo_Model_Thread extends XFCP_SV_ThreadReplyBan
                 $fetchOptions['replyBanUserId'] = SV_ThreadReplyBanTeeth_Globals::$hintThreadBanUserId;
             }
         }
+
         return parent::prepareThreadFetchOptions($fetchOptions);
     }
 
@@ -28,12 +29,14 @@ class SV_ThreadReplyBanTeeth_XenForo_Model_Thread extends XFCP_SV_ThreadReplyBan
         {
             if (!isset($thread['thread_reply_banned']))
             {
-                $result = $this->_getDb()->fetchRow("
+                $result = $this->_getDb()->fetchRow(
+                    "
                     SELECT expiry_date
                     FROM xf_thread_reply_ban
                     WHERE thread_id = ?
                         AND user_id = ?
-                ", array($thread['thread_id'], $viewingUser['user_id']));
+                ", [$thread['thread_id'], $viewingUser['user_id']]
+                );
                 $thread['thread_reply_banned'] = (
                     $result
                     && ($result['expiry_date'] === null || $result['expiry_date'] > XenForo_Application::$time)
@@ -44,6 +47,7 @@ class SV_ThreadReplyBanTeeth_XenForo_Model_Thread extends XFCP_SV_ThreadReplyBan
                 return true;
             }
         }
+
         return false;
     }
 
@@ -52,7 +56,7 @@ class SV_ThreadReplyBanTeeth_XenForo_Model_Thread extends XFCP_SV_ThreadReplyBan
         $this->standardizeViewingUserReferenceForNode($thread['node_id'], $viewingUser, $nodePermissions);
 
         $result = parent::canEditThreadTitle($thread, $forum, $errorPhraseKey, $nodePermissions, $viewingUser);
-        if(empty($result))
+        if (empty($result))
         {
             return false;
         }
@@ -73,7 +77,7 @@ class SV_ThreadReplyBanTeeth_XenForo_Model_Thread extends XFCP_SV_ThreadReplyBan
         $this->standardizeViewingUserReferenceForNode($thread['node_id'], $viewingUser, $nodePermissions);
 
         $result = parent::canDeleteThread($thread, $forum, $deleteType, $errorPhraseKey, $nodePermissions, $viewingUser);
-        if(empty($result))
+        if (empty($result))
         {
             return false;
         }
@@ -88,4 +92,9 @@ class SV_ThreadReplyBanTeeth_XenForo_Model_Thread extends XFCP_SV_ThreadReplyBan
 
         return true;
     }
+}
+
+if (false)
+{
+    class XFCP_SV_ThreadReplyBanTeeth_XenForo_Model_Thread extends XenForo_Model_Thread {}
 }

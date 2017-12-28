@@ -12,7 +12,7 @@ class SV_ThreadReplyBanTeeth_XenForo_Model_Post extends XFCP_SV_ThreadReplyBanTe
                 $joinOptions['selectFields'] .= ',
                     IF(reply_ban.user_id IS NULL, 0,
                         IF(reply_ban.expiry_date IS NULL OR reply_ban.expiry_date > '
-                        . $this->_getDb()->quote(XenForo_Application::$time) . ', 1, 0)) AS thread_reply_banned';
+                                                . $this->_getDb()->quote(XenForo_Application::$time) . ', 1, 0)) AS thread_reply_banned';
                 $joinOptions['joinTables'] .= '
                     LEFT JOIN xf_thread_reply_ban AS reply_ban
                         ON (reply_ban.thread_id = post.thread_id
@@ -33,13 +33,14 @@ class SV_ThreadReplyBanTeeth_XenForo_Model_Post extends XFCP_SV_ThreadReplyBanTe
         $this->standardizeViewingUserReferenceForNode($thread['node_id'], $viewingUser, $nodePermissions);
 
         $result = parent::canEditPost($post, $thread, $forum, $errorPhraseKey, $nodePermissions, $viewingUser);
-        if(empty($result))
+        if (empty($result))
         {
             return false;
         }
 
         if (XenForo_Application::get('options')->SV_ThreadReplyBanTeeth_EditBan)
         {
+            /** @var SV_ThreadReplyBanTeeth_XenForo_Model_Thread $threadModel */
             $threadModel = $this->_getThreadModel();
             if ($threadModel->isReplyBanned($thread, $viewingUser))
             {
@@ -55,13 +56,14 @@ class SV_ThreadReplyBanTeeth_XenForo_Model_Post extends XFCP_SV_ThreadReplyBanTe
         $this->standardizeViewingUserReferenceForNode($thread['node_id'], $viewingUser, $nodePermissions);
 
         $result = parent::canDeletePost($post, $thread, $forum, $deleteType, $errorPhraseKey, $nodePermissions, $viewingUser);
-        if(empty($result))
+        if (empty($result))
         {
             return false;
         }
 
         if (XenForo_Application::get('options')->SV_ThreadReplyBanTeeth_DeleteBan)
         {
+            /** @var SV_ThreadReplyBanTeeth_XenForo_Model_Thread $threadModel */
             $threadModel = $this->_getThreadModel();
             if ($threadModel->isReplyBanned($thread, $viewingUser))
             {
@@ -77,13 +79,14 @@ class SV_ThreadReplyBanTeeth_XenForo_Model_Post extends XFCP_SV_ThreadReplyBanTe
         $this->standardizeViewingUserReferenceForNode($thread['node_id'], $viewingUser, $nodePermissions);
 
         $result = parent::canLikePost($post, $thread, $forum, $errorPhraseKey, $nodePermissions, $viewingUser);
-        if(empty($result))
+        if (empty($result))
         {
             return false;
         }
 
         if (XenForo_Application::get('options')->SV_ThreadReplyBanTeeth_LikeBan)
         {
+            /** @var SV_ThreadReplyBanTeeth_XenForo_Model_Thread $threadModel */
             $threadModel = $this->_getThreadModel();
             if ($threadModel->isReplyBanned($thread, $viewingUser))
             {
@@ -93,4 +96,9 @@ class SV_ThreadReplyBanTeeth_XenForo_Model_Post extends XFCP_SV_ThreadReplyBanTe
 
         return true;
     }
+}
+
+if (false)
+{
+    class XFCP_SV_ThreadReplyBanTeeth_XenForo_Model_Post extends XenForo_Model_Post {}
 }

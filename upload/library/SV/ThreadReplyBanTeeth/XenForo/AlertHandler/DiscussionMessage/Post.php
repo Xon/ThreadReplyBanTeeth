@@ -15,3 +15,8 @@ class SV_ThreadReplyBanTeeth_XenForo_AlertHandler_DiscussionMessage_Post extends
         }
     }
 }
+
+if (false)
+{
+    class XFCP_SV_ThreadReplyBanTeeth_XenForo_AlertHandler_DiscussionMessage_Post extends XenForo_AlertHandler_DiscussionMessage_Post {}
+}

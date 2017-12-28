@@ -15,3 +15,8 @@ class SV_ThreadReplyBanTeeth_Dark_PostRating_AlertHandler extends XFCP_SV_Thread
         }
     }
 }
+
+if (false)
+{
+    class XFCP_SV_ThreadReplyBanTeeth_Dark_PostRating_AlertHandler extends Dark_PostRating_AlertHandler {}
+}

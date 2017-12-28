@@ -6,5 +6,5 @@ class SV_ThreadReplyBanTeeth_Globals
 {
     public static $hintThreadBanUserId = null;
 
-    private function __construct() {}
+    private function __construct() { }
 }

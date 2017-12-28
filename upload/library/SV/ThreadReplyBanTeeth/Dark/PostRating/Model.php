@@ -48,8 +48,16 @@ class SV_ThreadReplyBanTeeth_Dark_PostRating_Model extends XFCP_SV_ThreadReplyBa
         return true;
     }
 
+    /**
+     * @return XenForo_Model|XenForo_Model_Thread|SV_ThreadReplyBanTeeth_XenForo_Model_Thread
+     */
     protected function _getThreadModel()
     {
         return $this->getModelFromCache('XenForo_Model_Thread');
     }
+}
+
+if (false)
+{
+    class XFCP_SV_ThreadReplyBanTeeth_Dark_PostRating_Model extends Dark_PostRating_Model {}
 }
